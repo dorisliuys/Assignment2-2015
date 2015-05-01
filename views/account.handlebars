@@ -1,9 +1,26 @@
-<p>ID: {{user.id}}</p>
-<p>Name: {{user.name}}</p>
-<p>Instagram ID:{{user.ig_id}}</p>
+<!doctype html>
+<div id="content">
 
-<a href="/c3visualization">view C3 visualization</a>
-<br/>
-<a href="/visualization">view D3 visualization</a>
+  <div id="info">
 
+    <h4>Hello!</h4>
+    <p>id: {{user.ig_id}}</p>
+    <p>username: {{user.name}}</p>
+    <p id="text2">* Select one below to see your Instagram data visualization.</p>
+  </div>
 
+  <div>
+
+    <div id="item"> <a href="/c3visualization"> How many posts are there on your feed?<br><p>(C3JS Line Chart)</p></a> </div>
+    <div id="item"> <a href="/visualization"> How many posts are there on your feed?<br><p>(D3JS Bar Chart)</p></a> </div>
+
+   <div id="item"> <a href="/c3jsv2"> How popular your followings are?<br><p>(C3JS Scatter Plot)</p></a> </div>
+   
+   <div id="item"> <a href="/visualization2"> How popular your posts are?<br><p>(D3JS Bubble Chart)</p></a> </div>
+   <div id="item"> <a href="/login"> Log Out<br><br></a> </div>
+  
+
+  </div>
+
+</div>
+ 

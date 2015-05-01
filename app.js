@@ -151,30 +151,45 @@ app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account', {user: req.user});
 });
 
-app.get('/igphotos', ensureAuthenticatedInstagram, function(req, res){
-  var query  = models.User.where({ ig_id: req.user.ig_id });
+app.get('/likes', ensureAuthenticated, function(req, res){
+  var query  = models.User.where({  ig_id: req.user.ig_id });
   query.findOne(function (err, user) {
-    if (err) return err;
+    if (err) return handleError(err);
     if (user) {
       // doc may be null if no document matched
-      Instagram.users.liked_by_self({
+   // console.log("hi");
+      Instagram.users.recent({
+        user_id: user.ig_id,
         access_token: user.ig_access_token,
         complete: function(data) {
-          console.log(data);
+        //  console.log(data);
           //Map will iterate through the returned data obj
-          var imageArr = data.map(function(item) {
+        
+            //console.log(JSON.parse(follows));
+
+             var imageArr = data.map(function(item) {
             //create temporary json object
             tempJSON = {};
-            tempJSON.url = item.images.low_resolution.url;
-            //insert json object into image array
+            tempJSON.likes = item.likes.count;
+            tempJSON.id = item.created_time;
+            tempJSON.img = item.images.standard_resolution.url;
+            tempJSON.text = item.caption !== null ? item.caption.text : '(this picture has no caption)';
+             
             return tempJSON;
           });
-          res.render('photos', {photos: imageArr});
-        }
+             
+       return   res.json({likes: imageArr});
+       
+          
+
+       }, error: function(errorMessage, errorObject, caller){
+            console.log(errorMessage);          }
       }); 
     }
   });
 });
+
+
 
 app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   var query  = models.User.where({ ig_id: req.user.ig_id });
@@ -185,6 +200,7 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
         user_id: user.ig_id,
         access_token: user.ig_access_token,
         complete: function(data) {
+          //console.log(data);
           // an array of asynchronous functions
           var asyncTasks = [];
           var mediaCounts = [];
@@ -196,34 +212,47 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
                   user_id: item.id,
                   access_token: user.ig_access_token,
                   complete: function(data) {
-                    mediaCounts.push(data);
+                    //console.log(data);
+                    mediaCounts.push(data);  //add data to the set
                     callback();
                   }
                 });            
             });
-          });
+          }); //end data.forEach
           
           // Now we have an array of functions, each containing an async task
           // Execute all async tasks in the asyncTasks array
           async.parallel(asyncTasks, function(err){
             // All tasks are done now
             if (err) return err;
-            return res.json({users: mediaCounts});        
-          });
+            //console.log(mediaCounts); 
+            return res.json({users: mediaCounts});  
+                 
+          }); //end async.parallel
         }
-      });   
-    }
+      }); //end GET/follows  
+    } //end if(user)
   });
 });
 
+
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
+}); 
+
+app.get('/visualization2', ensureAuthenticatedInstagram, function (req, res){
+  res.render('visualization2');
 }); 
 
 
 app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualization');
 }); 
+
+app.get('/c3jsv2', ensureAuthenticatedInstagram, function (req, res){
+  res.render('c3jsv2');
+}); 
+
 
 app.get('/auth/instagram',
   passport.authenticate('instagram'),

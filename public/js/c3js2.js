@@ -26,41 +26,46 @@ spinner.fadeOut("medium");
   $.getJSON( '/igMediaCounts')
     .done(function( data ) {
       var yCounts = data.users.map(function(item){
-        return item.counts.media;
+        return item.counts.followed_by;
       });
 
       var username = data.users.map(function(item){
         return item.username;
       });
-
       
-      yCounts.unshift('Media Count');
+      yCounts.unshift('Follower Count');
 
       var chart = c3.generate({
+
         bindto: '#c3chart',
-      
-        data: {  
+        
+        data: {
           columns: [
             yCounts 
-          ]
-
+          ],
+          type: 'scatter'
         },
+
         axis: {
           x: {
-          type: 'category', 
-          categories: username,
-          tick: {
-                rotate: -60,
-                multiline: false
+            type: 'category',
+            categories: username,
+            tick: {
+              rotate: -60,
+              multiline: false
             },
+
             height: 135,
-      },
+
+          },
           y: {
-            label: '# of Posts' 
+            label: '# of Followers' 
           }
         }
+      });
+      hideProgress();
 
     });
-      hideProgress();
-  }); // END .done
 })();
+
+
