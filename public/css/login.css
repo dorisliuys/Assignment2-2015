@@ -64,15 +64,6 @@ h1 {
     position: absolute;
   }
 
-#content2 {
-    width: 100%;
-    height: 100%;
-    background:rgba(255,255,0,0.6);
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-right: 100px;
-  }
-
 #nav table{
     list-style-type: none;
     width: 100%;
@@ -148,13 +139,13 @@ a:visited {
 }
 
 #icons{
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin-top: 15%;
+  margin-bottom: 15%;
   text-align: center;
   background:rgba(255,255,255,0.3);
   border: 1px solid #ffffff;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: 32%;
+  margin-right: 32%;
   position: fixed;
   padding: 40px;
 }

@@ -21,8 +21,7 @@ spinner.fadeOut("medium");
 
 
 //set up chart
-var diameter = 700;
-    
+var diameter = 600;
 
 var bubble = d3.layout.pack()
     .sort(null)
@@ -34,7 +33,9 @@ var bubble = d3.layout.pack()
 
 var svg = d3.select("#likesChart").append("svg")
     .attr("width", diameter)
-    .attr("height", diameter);
+    .attr("height", diameter)
+    //.style("border", "1px solid black");
+   
 
 showProgress();
 
