@@ -20,5 +20,5 @@ PID: A97075340
 
 <p>> Fitts' Law: All the clickable links have relatively large target size so user can click on nearby area, which saves time.
 
-<p>> Aethetics: The website uses complementary color to provide pleasant reading. The background is simple, which allows the user to focus on the content. </p>
+<p>> Aesthetics: The website uses complementary color to provide pleasant reading. The background is simple, which allows the user to focus on the content. </p>
 
