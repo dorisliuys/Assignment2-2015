@@ -20,8 +20,8 @@ spinner.fadeOut("medium");
 }
 
 
-var margin = {top: 20, right: 20, bottom: 100, left: 250};
-var width = 1200 - margin.left - margin.right;
+var margin = {top: 20, right: 20, bottom: 100, left: 50};
+var width = 1000 - margin.left - margin.right;
 //var width = 820;
 var height = 500 - margin.top - margin.bottom;
 
@@ -46,9 +46,10 @@ var yAxis = d3.svg.axis()
   .orient("left");
 
   //create svg
-var svg = d3.select("#content").append("svg")
-  .attr("width", width + margin.left)
+var svg = d3.select("#chart1").append("svg")
+  .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
+  //.style("border", "1px solid black")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -85,7 +86,7 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("y", 6) //coordinate
     .attr("dy", ".5em")
     .style("text-anchor", "end")
-    .text("Number of Posts");
+    .text("# of Posts");
 
   //set up bars in bar graph
   svg.selectAll(".bar")
@@ -141,9 +142,6 @@ d3.json('/igMediaCounts', function(error, data) {
       .delay();
     } 
 
-
-    
-
     function removePop () {
       $('.popover').each(function() {
         $(this).remove();
@@ -162,10 +160,6 @@ d3.json('/igMediaCounts', function(error, data) {
       });     
       $(this).popover('show')
     }
-
-
-
-
 });
 
 
